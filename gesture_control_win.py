@@ -1,17 +1,13 @@
 import cv2
+from PIL import ImageGrab
+from enum import IntEnum
+from google.protobuf.json_format import MessageToDict
 import mediapipe as mp
 import pyautogui
 import math
 import keyboard
 import os
-import time
 import subprocess
-from PIL import ImageGrab
-from enum import IntEnum
-from ctypes import cast, POINTER
-from comtypes import CLSCTX_ALL
-from pycaw.pycaw import AudioUtilities, IAudioEndpointVolume
-from google.protobuf.json_format import MessageToDict
 import screen_brightness_control as sbcontrol
 from pycaw.pycaw import AudioUtilities, IAudioEndpointVolume
 from ctypes import cast, POINTER, byref
@@ -20,13 +16,13 @@ pyautogui.FAILSAFE = False
 mp_drawing = mp.solutions.drawing_utils
 mp_hands = mp.solutions.hands
 
-
 # Gesture Encodings
 class Gest(IntEnum):
     # Binary Encoded
+    RING = 2
     FIST = 0
     PINKY = 1
-    RING = 2
+
     MID = 4
     LAST3 = 7
     INDEX = 8
@@ -42,14 +38,10 @@ class Gest(IntEnum):
     PINCH_MINOR = 36
     LEFT_HAND_LOCK = 14
     POWER_OFF = 9
-
-
 # Multi-handedness Labels
 class HLabel(IntEnum):
     MINOR = 0
     MAJOR = 1
-
-
 # Convert Mediapipe Landmarks to recognizable Gestures
 class HandRecog:
 
